@@ -1,5 +1,7 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable semi */
+/* eslint-disable quotes */
 import * as https from "https";
-import { pick, camelCase } from "lodash";
 
 const options = {
   host: "raw.githubusercontent.com",
@@ -14,7 +16,7 @@ const options = {
 export const loadCountries = async () => {
   try {
     const countries = await downloadFile(options);
-    console.log(countries);
+    console.log(countries[0]);
   } catch (e) {
     console.log("Failed to download countries", e);
     process.exit(0);
