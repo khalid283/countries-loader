@@ -1,27 +1,22 @@
 /**
  * function to convert json to sql query only for insert
  * json object should be in the following format
- * type: insert
  * table: users
  * values: []
  */
+export const jsonToSqlInsert = (tableName: string, values: any) => {
+  const columns = Object.keys(values[0]);
+  // if value is string then wrap it with backtrack quotes
 
-export const jsonToSqlInsert = (jsonData) => {
-  const { type, table, values } = jsonData;
-  if (type === "insert") {
-    const columns = Object.keys(values[0]);
-    // if value is string then wrap it with backtrack quotes
-
-    const valuesString = values.map((value) => {
-      const valueString = Object.values(value).map((val) => {
-        return typeof val === "string" ? `'${val}'` : val;
-      });
-      return `(${valueString.join(", ")})`;
+  const valuesString = values.map((value) => {
+    const valueString = Object.values(value).map((val) => {
+      return typeof val === "string" ? `"${val}"` : val || "NULL";
     });
+    return `(${valueString.join(", ")})`;
+  });
 
-    const valuesStringJoined = valuesString.join(", ");
-    return `INSERT INTO ${table} (${columns.join(", ")}) VALUES ${valuesStringJoined}`;
-  }
+  const valuesStringJoined = valuesString.join(", ");
+  return `INSERT INTO ${tableName} (${columns.join(", ")}) VALUES ${valuesStringJoined}`;
 };
 
 /**

@@ -13,7 +13,7 @@ const options = {
 export const loadCountries = async () => {
   try {
     const countries = await downloadFile(options);
-    console.log(countries[0]);
+    return countries;
   } catch (e) {
     console.log("Failed to download countries", e);
     process.exit(0);
@@ -40,5 +40,3 @@ const downloadFile = async (options) => {
 
   return countries;
 };
-
-loadCountries();

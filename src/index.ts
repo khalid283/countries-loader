@@ -19,7 +19,7 @@ console.log(blue("Developed by Khalid Ansari (@khalid283)"));
 console.log("-------------------------------------");
 
 program
-  .command("create:table")
+  .command("load")
   .version("0.0.1")
   .description("create table in mysql")
   .action(async () => {
