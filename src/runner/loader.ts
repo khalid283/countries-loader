@@ -14,12 +14,12 @@ export const loader = async () => {
   /**
    * Check table exist or not
    */
-  await checkTable(["countries", "state", "city"], connection);
+  await checkTable(["countries", "states", "cities"], connection);
 
   /**
    * Create table
    */
-  await createTable(["country"], connection);
+  await createTable(["countries"], connection);
 
   //   connection.end();
   //   process.exit(0);
