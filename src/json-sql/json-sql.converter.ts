@@ -20,9 +20,7 @@ export const jsonToSqlInsert = (jsonData) => {
     });
 
     const valuesStringJoined = valuesString.join(", ");
-    return `INSERT INTO ${table} (${columns.join(
-      ", "
-    )}) VALUES ${valuesStringJoined}`;
+    return `INSERT INTO ${table} (${columns.join(", ")}) VALUES ${valuesStringJoined}`;
   }
 };
 
