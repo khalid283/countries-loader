@@ -1,47 +1,33 @@
-/* eslint-disable comma-dangle */
-/* eslint-disable semi */
-/* eslint-disable quotes */
-import * as https from "https";
+import * as clear from "clear";
+import * as figlet from "figlet";
+import * as chalk from "chalk";
+import { program } from "commander";
+import { loader } from "./runner/loader";
 
-const options = {
-  host: "raw.githubusercontent.com",
-  port: 443,
-  path: "dr5hn/countries-states-cities-database/master/countries%2Bstates%2Bcities.json",
-  method: "GET",
-  rejectUnauthorized: false,
-  requestCert: false,
-  agent: false,
-};
+const ascii = chalk.default.bold.blueBright;
+const blue = chalk.default.bold.blue;
+const red = chalk.default.bold.red;
 
-export const loadCountries = async () => {
-  try {
-    const countries = await downloadFile(options);
-    console.log(countries[0]);
-  } catch (e) {
-    console.log("Failed to download countries", e);
-    process.exit(0);
-  }
-};
+clear.default();
 
-const downloadFile = async (options) => {
-  const countries: Array<any> = await new Promise((resolve, reject) => {
-    const req = https.request(options, (res) => {
-      const chunks: Buffer[] = [];
-      res.on("data", (chunk) => {
-        chunks.push(chunk);
-      });
-      res.on("end", () => {
-        const data = Buffer.concat(chunks);
-        resolve(JSON.parse(data.toString()));
-      });
-    });
-    req.on("error", (err) => {
-      reject(err);
-    });
-    req.end();
+console.log(ascii(figlet.textSync("Country Loader", { horizontalLayout: "full" })));
+// eslint-disable-next-line no-console
+console.log("-------------------------------------");
+// eslint-disable-next-line no-console
+console.log(blue("Developed by Khalid Ansari (@khalid283)"));
+// eslint-disable-next-line no-console
+console.log("-------------------------------------");
+
+program
+  .command("create:table")
+  .version("0.0.1")
+  .description("create table in mysql")
+  .action(async () => {
+    try {
+      await loader();
+    } catch (e) {
+      console.log(red(`Failed to create table: ${e.message}`));
+    }
   });
 
-  return countries;
-};
-
-loadCountries();
+program.parse(process.argv);
