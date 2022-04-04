@@ -1,10 +1,11 @@
 {
   "name": "countries-loader",
   "version": "1.0.0",
-  "description": "load countries using cli",
-  "main": "index.ts",
+  "description": "load countries, states, cities using cli",
   "scripts": {
     "start": "tsc && node -r dotenv/config dist/index.js",
+    "build": "tsc",
+    "publish": "npm publish",
     "lint": "eslint . --ext .ts",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
