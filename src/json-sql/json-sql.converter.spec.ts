@@ -1,8 +1,4 @@
-import {
-  jsonToSqlInsert,
-  jsonToSqlUpdate,
-  jsonToSqlDelete,
-} from "./json-sql.converter";
+import { jsonToSqlInsert, jsonToSqlUpdate, jsonToSqlDelete } from "./json-sql.converter";
 
 /**
  * test for insert function
@@ -23,9 +19,8 @@ describe("Insert", () => {
         },
       ],
     };
-    const expectedSql =
-      "INSERT INTO users (name, age) VALUES ('John', 30), ('Jane', 20)";
-    expect(jsonToSqlInsert(jsonData)).toEqual(expectedSql);
+    const expectedSql = `INSERT INTO users (name, age) VALUES ("John", 30), ("Jane", 20)`;
+    expect(jsonToSqlInsert(jsonData.table, jsonData.values)).toEqual(expectedSql);
   });
 
   it("should return a valid sql insert query with multiple values", () => {
@@ -55,9 +50,8 @@ describe("Insert", () => {
         },
       ],
     };
-    const expectedSql =
-      "INSERT INTO users (name, city, age) VALUES ('John', 'New York', 30), ('Jane', 'SF', 20), ('John', 'New York', 30), ('Jane', 'SF', 20)";
-    expect(jsonToSqlInsert(jsonData)).toEqual(expectedSql);
+    const expectedSql = `INSERT INTO users (name, city, age) VALUES ("John", "New York", 30), ("Jane", "SF", 20), ("John", "New York", 30), ("Jane", "SF", 20)`;
+    expect(jsonToSqlInsert(jsonData.table, jsonData.values)).toEqual(expectedSql);
   });
 });
 
@@ -109,8 +103,7 @@ describe("Delete", () => {
         },
       ],
     };
-    const expectedSql =
-      "DELETE FROM users WHERE id = 1; DELETE FROM users WHERE id = 2;";
+    const expectedSql = "DELETE FROM users WHERE id = 1; DELETE FROM users WHERE id = 2;";
     expect(jsonToSqlDelete(jsonData)).toEqual(expectedSql);
   });
 });
