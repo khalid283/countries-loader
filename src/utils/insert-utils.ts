@@ -1,39 +1,37 @@
 /* eslint-disable camelcase */
 import { Connection, RowDataPacket } from "mysql2";
 import { pick } from "lodash";
+import { runSql } from "../runner/run-sql";
 
-export const checkCountryExist = async (country, connection: Connection): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    connection.query(
-      `SELECT * FROM countries WHERE iso2 = '${country.iso2}' AND iso3 = '${country.iso3}' AND name = "${country.name}"`,
-      (err, result: RowDataPacket) => {
-        if (err) {
-          reject(err);
-        }
-        if (result.length === 0) {
-          resolve(null);
-        }
-        resolve(result[0]);
-      }
-    );
-  });
+export const loadDBCountries = async (connection: Connection): Promise<RowDataPacket[]> => {
+  const sql = "SELECT * FROM countries";
+  return await runSql(sql, connection);
 };
 
-export const checkStateExist = async (state, country_id, connection: Connection): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    connection.query(
-      `SELECT * FROM states WHERE country_id = ${country_id} AND state_code = '${state.state_code}' AND name = "${state.name}"`,
-      (err, result: RowDataPacket) => {
-        if (err) {
-          reject(err);
-        }
-        if (result.length === 0) {
-          resolve(null);
-        }
-        resolve(result[0]);
-      }
-    );
-  });
+export const loadDBStates = async (
+  country_id,
+  connection: Connection
+): Promise<RowDataPacket[]> => {
+  const sql = `SELECT * FROM states where country_id = ${country_id}`;
+  return await runSql(sql, connection);
+};
+
+export const checkCountryExist = (country, countryList): any => {
+  const countryInList = countryList.find((c) => c.name === country.name && c.iso3 === country.iso3);
+  if (countryInList) {
+    return countryInList[0];
+  }
+  return null;
+};
+
+export const checkStateExist = (state, country_id, stateList): any => {
+  const stateInList = stateList.find(
+    (s) => s.name === state.name && s.state_code === state.state_code && s.country_id === country_id
+  );
+  if (stateInList) {
+    return stateInList[0];
+  }
+  return null;
 };
 
 export const getCityDump = (cities, state_id, country_id) => {
