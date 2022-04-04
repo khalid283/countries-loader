@@ -5,6 +5,7 @@
   "scripts": {
     "start": "tsc && node -r dotenv/config dist/index.js",
     "build": "tsc",
+    "ci": "yarn install --frozen-lockfile",
     "publish": "npm publish",
     "lint": "eslint . --ext .ts",
     "test": "jest --coverage",
