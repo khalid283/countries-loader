@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: 16
       - run: npm run ci
+      - run: npm run build
       - run: npm test
 
   publish-npm:
@@ -31,5 +32,4 @@ jobs:
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.KH_NPM_TOKEN}}
-          GITHUB_TOKEN: ${{secrets.WORKFLOW_TOKEN}}
 
