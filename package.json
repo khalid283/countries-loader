@@ -1,6 +1,6 @@
 {
   "name": "countries-loader",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "load countries, states, cities using cli",
   "author": "Khalid Ansari (khalid283)",
   "license": "MIT",
