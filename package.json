@@ -1,7 +1,10 @@
 {
   "name": "countries-loader",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "load countries, states, cities using cli",
+  "author": "Khalid Ansari (khalid283)",
+  "license": "MIT",
+  "main": "dist/index.js",
   "scripts": {
     "start": "tsc && node -r dotenv/config dist/index.js",
     "build": "tsc",
@@ -16,10 +19,11 @@
     "type": "git",
     "url": "git+https://github.com/khalid283/countries-loader.git"
   },
-  "author": "",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/khalid283/countries-loader/issues"
+  },
+  "bin": {
+    "countries-loader": "./dist/index.js"
   },
   "homepage": "https://github.com/khalid283/countries-loader#readme",
   "dependencies": {

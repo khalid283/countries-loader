@@ -1,14 +1,16 @@
+#! /usr/bin/env node
 import * as clear from "clear";
 import * as figlet from "figlet";
 import * as chalk from "chalk";
 import { program } from "commander";
 import { loader } from "./runner/loader";
 
-const ascii = chalk.default.bold.blueBright;
-const blue = chalk.default.bold.blue;
-const red = chalk.default.bold.red;
+require("dotenv").config();
+const ascii = chalk.bold.blueBright;
+const blue = chalk.bold.blue;
+const red = chalk.bold.red;
 
-clear.default();
+clear();
 
 console.log(ascii(figlet.textSync("Country Loader", { horizontalLayout: "full" })));
 // eslint-disable-next-line no-console
@@ -29,5 +31,8 @@ program
       console.log(red(`Failed to create table: ${e.message}`));
     }
   });
+
+program.option("-s, --states", "load states");
+program.option("-ci, --cities", "load cities");
 
 program.parse(process.argv);
