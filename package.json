@@ -1,6 +1,6 @@
 {
   "name": "countries-loader",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "load countries, states, cities using cli",
   "author": "Khalid Ansari (khalid283)",
   "license": "MIT",
@@ -9,7 +9,6 @@
     "start": "tsc && node -r dotenv/config dist/index.js",
     "build": "tsc",
     "ci": "yarn install --frozen-lockfile",
-    "publish": "npm publish",
     "lint": "eslint . --ext .ts",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
